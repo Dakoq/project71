@@ -19,16 +19,15 @@ public class JoinController {
        
         this.joinService = joinService;
     }
-    
+    //중복검사 
     @PostMapping("/api/check_username")
     public boolean joinCheckEmail(@RequestBody JoinDTO joinDTO) {
-        System.out.println("joinCheckEmail post : " + joinDTO.getUsername());
     	return joinService.joinCheckUsername(joinDTO);
     }
-
+    
+    //회원가입
     @PostMapping("/api/join")
     public ResponseEntity<?> joinProcess(@RequestBody JoinDTO joinDTO) {
-        System.out.println("join post : " + joinDTO.getUsername());
         return joinService.joinProcess(joinDTO);
     }
     

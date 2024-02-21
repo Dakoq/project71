@@ -13,13 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 
 import com.domein.jwt.JWTFilter;
 import com.domein.jwt.JWTUtil;
 import com.domein.jwt.LoginFilter;
 
-import jakarta.servlet.http.HttpServletRequest;
 
 
 
@@ -69,10 +67,13 @@ public class SecurityConfig {
 		//경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/", "/join", "/api/login", "/api/join", 
-                        				 "/api/check_username", "/api/search", "/character" ).permitAll()
+                        .requestMatchers("/login", "/", "/join", "/api/login", "/api/join",
+                        				"/api/check_username/**", "/api/search/**", "/character/**",
+                        				"/api/ranking/**"
+                        				 ).permitAll()
 												.requestMatchers("/admin").hasRole("ADMIN")
-												.requestMatchers("/mypage", "/market", "/community").hasRole("USER")
+												.requestMatchers("/mypage", "/community", "/api/member", 
+														"/api/memberUpdate", "/api/memberDelete", "/api/articles", "/api/posts", "/api/comments").hasRole("USER") 
                         .anyRequest().authenticated());
         http
         		.addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
