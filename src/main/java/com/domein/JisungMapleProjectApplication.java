@@ -15,8 +15,4 @@ public class JisungMapleProjectApplication {
 		SpringApplication.run(JisungMapleProjectApplication.class, args);
 	}
 	
-	@GetMapping("/")
-	public void home() {
-		System.out.println("완료");
-	}
 }
